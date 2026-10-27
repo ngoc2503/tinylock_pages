@@ -39,12 +39,10 @@
     width: 96px; height: 96px;
     border-radius: 22px;
     margin: 0 auto 16px;
-    background: linear-gradient(135deg, var(--primary), #6aa8ff);
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 40px; font-weight: 700;
     overflow: hidden;
+    box-shadow: 0 4px 14px rgba(20, 40, 90, 0.15);
   }
-  .icon img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
   h1 { font-size: 26px; line-height: 1.25; margin-bottom: 8px; }
   .tagline { color: var(--muted); font-size: 16px; margin-bottom: 24px; }
   .btn {
@@ -110,7 +108,7 @@
 <body>
 <main>
   <div class="card">
-    <div class="icon" id="appIcon"><span id="appInitial">A</span><img id="appIconImg" alt=""></div>
+    <div class="icon" id="appIcon"><img id="appIconImg" src="../guides/images/icon.png" alt="Biểu tượng ứng dụng"></div>
     <h1 id="appName">Tên ứng dụng</h1>
     <p class="tagline" id="appTagline">Mô tả ngắn gọn về ứng dụng của bạn.</p>
 
@@ -156,10 +154,11 @@
    ============================================================ */
 const CONFIG = {
   appName: "TinyLock - Khóa Cảm Ứng Cho Bé",
-  tagline: "TinyLock là ứng dụng hỗ trợ phụ huynh quản lý việc sử dụng điện thoại của trẻ với các tính năng như khóa cảm ứng, Kid Mode, hẹn giờ sử dụng và chống trộm. Ứng dụng giúp hạn chế chạm nhầm, hỗ trợ hình thành thói quen sử dụng điện thoại lành mạnh và mang đến trải nghiệm an toàn hơn cho trẻ.",
+  tagline: "Giúp phụ huynh an tâm hơn khi cho trẻ sử dụng điện thoại, đồng thời hỗ trợ xây dựng thói quen sử dụng thiết bị an toàn và hợp lý.",
   features: [
-    "Khóa màn hình, ngăn chạm nhầm",
-    "Giới hạn ứng dụng sử dụng",
+    "Khóa cảm ứng, ngăn chạm nhầm",
+    "Hạn chế ứng dụng sử dụng",
+    "Giới hạn thời gian sử dụng",
     "Thiết lập mã pin an toàn",
     "Chế độ chống trộm thông minh",
     "Hoàn toàn miễn phí"
@@ -173,8 +172,8 @@ const CONFIG = {
   autoRedirectAndroid: false,
   redirectDelayMs: 1500,
 
-  // Ảnh biểu tượng app (đường dẫn tới file, ví dụ "icon.png"). Để trống nếu chưa có.
-  iconUrl: "",
+  // Ảnh biểu tượng app: đặt file ảnh cùng thư mục với index.html và ghi tên file vào đây.
+  iconUrl: "icon.png",
 
   // Thu email người dùng iPhone. Cách miễn phí: tạo form tại formspree.io rồi dán URL vào đây,
   // ví dụ "https://formspree.io/f/xxxxxxx". Nếu để trống, trang sẽ mở ứng dụng email của người dùng.
@@ -199,18 +198,13 @@ const CONFIG = {
   document.title = CONFIG.appName + " - Tải miễn phí";
   $("appName").textContent = CONFIG.appName;
   $("appTagline").textContent = CONFIG.tagline;
-  $("appInitial").textContent = (CONFIG.appName || "A").trim().charAt(0).toUpperCase();
   CONFIG.features.forEach((f) => {
     const li = document.createElement("li");
     li.textContent = f;
     $("featureList").appendChild(li);
   });
-  if (CONFIG.iconUrl) {
-    const img = $("appIconImg");
-    img.src = CONFIG.iconUrl;
-    img.alt = CONFIG.appName;
-    img.onload = () => { img.style.display = "block"; $("appInitial").style.display = "none"; };
-  }
+  $("appIconImg").src = CONFIG.iconUrl;
+  $("appIconImg").alt = "Biểu tượng " + CONFIG.appName;
   $("privacyLink").href = CONFIG.privacyUrl;
   if (CONFIG.contactEmail) $("contactLink").href = "mailto:" + CONFIG.contactEmail;
   else $("contactWrap").style.display = "none";
