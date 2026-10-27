@@ -1,54 +1,291 @@
-<!--
-    TinyLock User Guide
-    File: guide/index.html
-
-    Cách chỉnh sửa:
-    1. Thay các nội dung hướng dẫn cho phù hợp với ứng dụng.
-    2. Thay tên, mô tả và liên kết nếu cần.
-    3. Thêm ảnh vào thư mục guide/images/.
-    4. Kiểm tra lại các quyền Android và tính năng thực tế trước khi xuất bản.
--->
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tải ứng dụng</title>
+<meta name="description" content="Tải ứng dụng miễn phí trên Google Play.">
+<meta name="theme-color" content="#1a73e8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1558b0;
+    --text: #1f2430;
+    --muted: #5f6675;
+    --bg: #f5f7fb;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  main { width: 100%; max-width: 480px; padding: 32px 20px 24px; flex: 1; }
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(20, 40, 90, 0.08);
+  }
+  .icon {
+    width: 96px; height: 96px;
+    border-radius: 22px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--primary), #6aa8ff);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 40px; font-weight: 700;
+    overflow: hidden;
+  }
+  .icon img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  h1 { font-size: 26px; line-height: 1.25; margin-bottom: 8px; }
+  .tagline { color: var(--muted); font-size: 16px; margin-bottom: 24px; }
+  .btn {
+    display: block; width: 100%;
+    background: var(--primary); color: #fff;
+    text-decoration: none; font-weight: 600; font-size: 17px;
+    padding: 16px 20px; border-radius: 14px; border: 0; cursor: pointer;
+    transition: background .15s, transform .05s;
+  }
+  .btn:hover { background: var(--primary-dark); }
+  .btn:active { transform: scale(0.98); }
+  .badge-free { margin-top: 12px; font-size: 13px; color: var(--muted); }
 
-    <meta name="theme-color" content="#4F46E5">
+  .features { list-style: none; text-align: left; margin: 28px 0 0; }
+  .features li { padding: 10px 0 10px 32px; position: relative; font-size: 15px; border-top: 1px solid #eef0f5; }
+  .features li:first-child { border-top: 0; }
+  .features li::before {
+    content: "✓"; position: absolute; left: 4px; top: 10px;
+    color: var(--primary); font-weight: 700;
+  }
 
-    <meta name="description"
-          content="Hướng dẫn sử dụng TinyLock: khóa cảm ứng, quản lý thời gian sử dụng điện thoại và hỗ trợ bảo vệ trẻ em khi sử dụng thiết bị Android.">
+  .panel { display: none; }
+  .panel.show { display: block; }
 
-    <title>Hướng dẫn sử dụng TinyLock</title>
+  .notice {
+    background: #fff7e6; border: 1px solid #ffd591; color: #8a5300;
+    border-radius: 12px; padding: 14px 16px; font-size: 15px; text-align: left; margin-bottom: 16px;
+  }
+  form.waitlist { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  form.waitlist input[type="email"] {
+    padding: 14px 16px; font-size: 16px; border: 1.5px solid #d6dbe6; border-radius: 12px; outline: none;
+  }
+  form.waitlist input[type="email"]:focus { border-color: var(--primary); }
+  .form-msg { font-size: 14px; margin-top: 8px; min-height: 20px; }
+  .form-msg.ok { color: #1e7e34; }
+  .form-msg.err { color: #c62828; }
 
+  .qr { margin-top: 20px; }
+  .qr img { width: 150px; height: 150px; border-radius: 12px; border: 1px solid #eef0f5; }
+  .qr p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .redirecting { font-size: 14px; color: var(--muted); margin-top: 12px; }
+
+  footer { padding: 16px 20px 28px; font-size: 13px; color: var(--muted); text-align: center; }
+  footer a { color: var(--muted); }
+</style>
+
+<!-- Meta (Facebook) Pixel: thay PIXEL_ID bằng ID thật của bạn, hoặc xóa khối này nếu chưa dùng -->
+<script>
+  const PIXEL_ID = "YOUR_PIXEL_ID";
+  if (PIXEL_ID && PIXEL_ID !== "YOUR_PIXEL_ID") {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
 </head>
 
 <body>
+<main>
+  <div class="card">
+    <div class="icon" id="appIcon"><span id="appInitial">A</span><img id="appIconImg" alt=""></div>
+    <h1 id="appName">Tên ứng dụng</h1>
+    <p class="tagline" id="appTagline">Mô tả ngắn gọn về ứng dụng của bạn.</p>
 
-<header class="topbar">
-    <div class="topbar-inner">
-
-        <a href="#top" class="brand">
-            <span class="brand-icon">🔒</span>
-            <span>TinyLock</span>
-        </a>
-
-        <select id="languageSelect"
-                class="language-select"
-                aria-label="Chọn ngôn ngữ">
-            <option value="vi">🇻🇳 Tiếng Việt</option>
-            <option value="en">🇬🇧 English</option>
-        </select>
-
+    <!-- Android + máy tính -->
+    <div class="panel" id="panelAndroid">
+      <a class="btn" id="playBtn" href="#" rel="noopener">Tải miễn phí trên Google Play</a>
+      <p class="badge-free">Dành cho thiết bị Android</p>
+      <p class="redirecting" id="redirectMsg"></p>
     </div>
-</header>
 
-<main id="top">
+    <!-- iPhone / iPad -->
+    <div class="panel" id="panelIOS">
+      <div class="notice">
+        Rất tiếc, ứng dụng hiện <strong>chưa có bản iOS</strong>. Để lại email, chúng tôi sẽ báo ngay khi có bản dành cho iPhone.
+      </div>
+      <form class="waitlist" id="waitlistForm">
+        <input type="email" id="emailInput" placeholder="Email của bạn" required autocomplete="email">
+        <button class="btn" type="submit">Báo cho tôi khi có bản iOS</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
 
+    <!-- Máy tính -->
+    <div class="panel" id="panelDesktop">
+      <div class="qr">
+        <img id="qrImg" alt="Mã QR tải ứng dụng">
+        <p>Quét mã bằng điện thoại Android để tải</p>
+      </div>
+    </div>
 
+    <ul class="features" id="featureList"></ul>
+  </div>
+</main>
 
+<footer>
+  <a id="privacyLink" href="privacy.html">Chính sách quyền riêng tư</a>
+  <span id="contactWrap"> · <a id="contactLink" href="#">Liên hệ</a></span>
+</footer>
+
+<script>
+/* ============================================================
+   CẤU HÌNH: chỉ cần sửa khối này
+   ============================================================ */
+const CONFIG = {
+  appName: "TinyLock - Khóa Cảm Ứng Cho Bé",
+  tagline: "TinyLock là ứng dụng hỗ trợ phụ huynh quản lý việc sử dụng điện thoại của trẻ với các tính năng như khóa cảm ứng, Kid Mode, hẹn giờ sử dụng và chống trộm. Ứng dụng giúp hạn chế chạm nhầm, hỗ trợ hình thành thói quen sử dụng điện thoại lành mạnh và mang đến trải nghiệm an toàn hơn cho trẻ.",
+  features: [
+    "Khóa màn hình, ngăn chạm nhầm",
+    "Giới hạn ứng dụng sử dụng",
+    "Thiết lập mã pin an toàn",
+    "Chế độ chống trộm thông minh",
+    "Hoàn toàn miễn phí"
+  ],
+
+  // Link Google Play (không cần thêm tham số, trang sẽ tự gắn)
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.tinygamelab.tinylock",
+
+  // Tự động chuyển người dùng Android sang Google Play sau một khoảng ngắn.
+  // Đặt false nếu muốn họ tự bấm nút.
+  autoRedirectAndroid: false,
+  redirectDelayMs: 1500,
+
+  // Ảnh biểu tượng app (đường dẫn tới file, ví dụ "icon.png"). Để trống nếu chưa có.
+  iconUrl: "",
+
+  // Thu email người dùng iPhone. Cách miễn phí: tạo form tại formspree.io rồi dán URL vào đây,
+  // ví dụ "https://formspree.io/f/xxxxxxx". Nếu để trống, trang sẽ mở ứng dụng email của người dùng.
+  waitlistEndpoint: "",
+  waitlistFallbackEmail: "nguyenvanngoc7857@gmail.com",
+
+  contactEmail: "nguyenvanngoc7857@gmail.com",
+  privacyUrl: "privacy.html"
+};
+
+/* ============================================================
+   Phần dưới không cần sửa
+   ============================================================ */
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const ua = navigator.userAgent || "";
+  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua) ||
+                (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  // Nội dung
+  document.title = CONFIG.appName + " - Tải miễn phí";
+  $("appName").textContent = CONFIG.appName;
+  $("appTagline").textContent = CONFIG.tagline;
+  $("appInitial").textContent = (CONFIG.appName || "A").trim().charAt(0).toUpperCase();
+  CONFIG.features.forEach((f) => {
+    const li = document.createElement("li");
+    li.textContent = f;
+    $("featureList").appendChild(li);
+  });
+  if (CONFIG.iconUrl) {
+    const img = $("appIconImg");
+    img.src = CONFIG.iconUrl;
+    img.alt = CONFIG.appName;
+    img.onload = () => { img.style.display = "block"; $("appInitial").style.display = "none"; };
+  }
+  $("privacyLink").href = CONFIG.privacyUrl;
+  if (CONFIG.contactEmail) $("contactLink").href = "mailto:" + CONFIG.contactEmail;
+  else $("contactWrap").style.display = "none";
+
+  // Gắn tham số nguồn vào link Google Play để xem trong Play Console
+  function buildPlayUrl() {
+    const incoming = new URLSearchParams(location.search);
+    const source = incoming.get("utm_source") || "landing_page";
+    const campaign = incoming.get("utm_campaign") || "default";
+    const medium = incoming.get("utm_medium") || "web";
+    const referrer = encodeURIComponent(
+      "utm_source=" + source + "&utm_medium=" + medium + "&utm_campaign=" + campaign
+    );
+    const sep = CONFIG.playStoreUrl.indexOf("?") === -1 ? "?" : "&";
+    return CONFIG.playStoreUrl + sep + "referrer=" + referrer;
+  }
+  const playUrl = buildPlayUrl();
+  $("playBtn").href = playUrl;
+
+  // Ghi nhận sự kiện bấm nút trên Facebook Pixel
+  function trackClick() {
+    try { if (window.fbq) fbq("track", "Lead"); } catch (e) {}
+  }
+  $("playBtn").addEventListener("click", trackClick);
+
+  // Chọn giao diện theo thiết bị
+  if (isIOS) {
+    $("panelIOS").classList.add("show");
+  } else if (isAndroid) {
+    $("panelAndroid").classList.add("show");
+    if (CONFIG.autoRedirectAndroid) {
+      $("redirectMsg").textContent = "Đang chuyển đến Google Play...";
+      setTimeout(() => { trackClick(); location.href = playUrl; }, CONFIG.redirectDelayMs);
+    }
+  } else {
+    // Máy tính: hiện nút + mã QR
+    $("panelAndroid").classList.add("show");
+    $("panelDesktop").classList.add("show");
+    $("qrImg").src = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
+                     encodeURIComponent(CONFIG.playStoreUrl);
+  }
+
+  // Form thu email cho bản iOS
+  $("waitlistForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = $("emailInput").value.trim();
+    const msg = $("formMsg");
+    msg.className = "form-msg";
+    if (!email) return;
+
+    try { if (window.fbq) fbq("track", "CompleteRegistration"); } catch (err) {}
+
+    if (CONFIG.waitlistEndpoint) {
+      fetch(CONFIG.waitlistEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ email: email, source: "ios_waitlist" })
+      }).then((r) => {
+        if (r.ok) {
+          msg.classList.add("ok");
+          msg.textContent = "Cảm ơn bạn! Chúng tôi sẽ báo khi có bản iOS.";
+          $("emailInput").value = "";
+        } else { throw new Error("fail"); }
+      }).catch(() => {
+        msg.classList.add("err");
+        msg.textContent = "Có lỗi xảy ra, vui lòng thử lại sau.";
+      });
+    } else {
+      // Không có dịch vụ nhận form: mở ứng dụng email của người dùng
+      const subject = encodeURIComponent("Đăng ký nhận tin bản iOS - " + CONFIG.appName);
+      const body = encodeURIComponent("Vui lòng báo cho tôi khi có bản iOS. Email: " + email);
+      location.href = "mailto:" + CONFIG.waitlistFallbackEmail + "?subject=" + subject + "&body=" + body;
+    }
+  });
+})();
+</script>
 </body>
 </html>
