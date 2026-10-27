@@ -1,0 +1,1170 @@
+<!--
+    TinyLock User Guide
+    File: guide/index.html
+
+    Cách chỉnh sửa:
+    1. Thay các nội dung hướng dẫn cho phù hợp với ứng dụng.
+    2. Thay tên, mô tả và liên kết nếu cần.
+    3. Thêm ảnh vào thư mục guide/images/.
+    4. Kiểm tra lại các quyền Android và tính năng thực tế trước khi xuất bản.
+-->
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#4F46E5">
+
+    <meta name="description"
+          content="Hướng dẫn sử dụng TinyLock: khóa cảm ứng, quản lý thời gian sử dụng điện thoại và hỗ trợ bảo vệ trẻ em khi sử dụng thiết bị Android.">
+
+    <title>Hướng dẫn sử dụng TinyLock</title>
+
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #3730A3;
+            --primary-light: #EEF2FF;
+            --background: #F8FAFC;
+            --surface: #FFFFFF;
+            --text: #1E293B;
+            --muted: #64748B;
+            --border: #E2E8F0;
+            --success: #15803D;
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--text);
+            background: var(--background);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .topbar-inner {
+            max-width: 1000px;
+            margin: auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: var(--primary-light);
+            border-radius: 12px;
+            font-size: 23px;
+        }
+
+        .language-select {
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .hero {
+            padding: 54px 20px 48px;
+            text-align: center;
+            background: linear-gradient(
+                135deg,
+                #EEF2FF 0%,
+                #F8FAFC 55%,
+                #E0E7FF 100%
+            );
+        }
+
+        .hero-content {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: white;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid #C7D2FE;
+        }
+
+        h1 {
+            margin: 18px 0 14px;
+            font-size: clamp(30px, 6vw, 46px);
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            margin: 0 auto;
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .button-primary {
+            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .button-primary:hover {
+            background: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px 60px;
+        }
+
+        .intro {
+            padding: 20px;
+            margin-bottom: 28px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .intro strong {
+            color: var(--primary);
+        }
+
+        .section-heading {
+            margin: 38px 0 18px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 6px;
+            font-size: 25px;
+            line-height: 1.35;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .feature-card {
+            display: block;
+            padding: 20px;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+            text-decoration: none;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px;
+            background: var(--primary-light);
+            border-radius: 14px;
+            font-size: 25px;
+        }
+
+        .feature-card h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .guide-section {
+            margin-top: 24px;
+            padding: 24px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .guide-section h2 {
+            margin: 0 0 14px;
+            font-size: 23px;
+            line-height: 1.4;
+        }
+
+        .guide-section h3 {
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .guide-section p {
+            margin: 10px 0;
+        }
+
+        .guide-section li {
+            margin-bottom: 8px;
+        }
+
+        .guide-image {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            height: auto;
+            margin: 18px auto;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .image-placeholder {
+            padding: 25px;
+            margin: 18px 0;
+            text-align: center;
+            color: var(--muted);
+            background: #F8FAFC;
+            border: 1px dashed #CBD5E1;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .notice {
+            padding: 15px 17px;
+            margin: 18px 0;
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+        }
+
+        .notice-warning {
+            background: #FFF7ED;
+            border-left-color: #EA580C;
+        }
+
+        .steps {
+            padding-left: 22px;
+        }
+
+        .steps li {
+            padding-left: 4px;
+            margin-bottom: 12px;
+        }
+
+        details {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        details:last-child {
+            border-bottom: none;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        details p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .contact-box {
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+        }
+
+        .contact-box h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            padding: 25px 20px;
+            text-align: center;
+            color: var(--muted);
+            background: white;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 50;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .topbar-inner {
+                padding: 10px 14px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: 40px 18px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 20px 14px 45px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-section {
+                padding: 19px;
+            }
+
+            .section-heading h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+
+        <a href="#top" class="brand">
+            <span class="brand-icon">🔒</span>
+            <span>TinyLock</span>
+        </a>
+
+        <select id="languageSelect"
+                class="language-select"
+                aria-label="Chọn ngôn ngữ">
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="en">🇬🇧 English</option>
+        </select>
+
+    </div>
+</header>
+
+<main id="top">
+
+    <!-- HERO -->
+
+    <section class="hero">
+        <div class="hero-content">
+
+            <span class="badge"
+                  data-vi="TRUNG TÂM HƯỚNG DẪN"
+                  data-en="HELP CENTER">
+                TRUNG TÂM HƯỚNG DẪN
+            </span>
+
+            <h1 data-vi="Hướng dẫn sử dụng TinyLock"
+                data-en="TinyLock User Guide">
+                Hướng dẫn sử dụng TinyLock
+            </h1>
+
+            <p data-vi="Khám phá các tính năng của TinyLock và tìm hiểu cách thiết lập để giúp trẻ sử dụng điện thoại an toàn, phù hợp hơn."
+               data-en="Explore TinyLock features and learn how to configure them to help children use their phones more safely.">
+                Khám phá các tính năng của TinyLock và tìm hiểu cách
+                thiết lập để giúp trẻ sử dụng điện thoại an toàn,
+                phù hợp hơn.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#features"
+                   class="button button-primary"
+                   data-vi="Khám phá tính năng"
+                   data-en="Explore Features">
+                    Khám phá tính năng
+                </a>
+
+                <a href="#faq"
+                   class="button"
+                   data-vi="Câu hỏi thường gặp"
+                   data-en="Frequently Asked Questions">
+                    Câu hỏi thường gặp
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- INTRODUCTION -->
+
+        <div class="intro">
+            <strong data-vi="Chào mừng bạn đến với TinyLock!"
+                    data-en="Welcome to TinyLock!">
+                Chào mừng bạn đến với TinyLock!
+            </strong>
+
+            <p data-vi="Tài liệu này hướng dẫn bạn cách sử dụng các tính năng chính của ứng dụng. Một số tính năng có thể yêu cầu quyền truy cập đặc biệt hoặc chỉ khả dụng trên phiên bản TinyLock nhất định."
+               data-en="This guide explains the main features of the app. Some features may require special permissions or may only be available in certain TinyLock versions.">
+                Tài liệu này hướng dẫn bạn cách sử dụng các tính năng
+                chính của ứng dụng. Một số tính năng có thể yêu cầu
+                quyền truy cập đặc biệt hoặc chỉ khả dụng trên phiên
+                bản TinyLock nhất định.
+            </p>
+        </div>
+
+        <!-- FEATURE DIRECTORY -->
+
+        <section id="features">
+
+            <div class="section-heading">
+                <h2 data-vi="Bạn cần trợ giúp về điều gì?"
+                    data-en="What do you need help with?">
+                    Bạn cần trợ giúp về điều gì?
+                </h2>
+
+                <p data-vi="Chọn một tính năng để xem hướng dẫn chi tiết."
+                   data-en="Choose a feature to view its instructions.">
+                    Chọn một tính năng để xem hướng dẫn chi tiết.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <a class="feature-card" href="#touch-lock">
+                    <div class="feature-icon">👆</div>
+
+                    <h3 data-vi="Khóa cảm ứng"
+                        data-en="Touch Lock">
+                        Khóa cảm ứng
+                    </h3>
+
+                    <p data-vi="Hướng dẫn khóa thao tác chạm để hạn chế trẻ vô tình chạm vào màn hình khi xem video."
+                       data-en="Learn how to restrict touch input while your child watches videos.">
+                        Hướng dẫn khóa thao tác chạm để hạn chế trẻ
+                        vô tình chạm vào màn hình khi xem video.
+                    </p>
+                </a>
+
+                <a class="feature-card" href="#kid-mode">
+                    <div class="feature-icon">🧸</div>
+
+                    <h3 data-vi="Chế độ trẻ em"
+                        data-en="Kid Mode">
+                        Chế độ trẻ em
+                    </h3>
+
+                    <p data-vi="Tìm hiểu cách thiết lập các ứng dụng được phép sử dụng."
+                       data-en="Learn how to configure allowed applications.">
+                        Tìm hiểu cách thiết lập các ứng dụng được phép sử dụng.
+                    </p>
+                </a>
+
+                <a class="feature-card" href="#timer">
+                    <div class="feature-icon">⏱️</div>
+
+                    <h3 data-vi="Hẹn giờ"
+                        data-en="Quick Timer">
+                        Hẹn giờ
+                    </h3>
+
+                    <p data-vi="Tìm hiểu cách sử dụng bộ hẹn giờ để hỗ trợ quản lý thời gian."
+                       data-en="Learn how to use the timer to help manage screen time.">
+                        Tìm hiểu cách sử dụng bộ hẹn giờ để hỗ trợ quản lý thời gian.
+                    </p>
+                </a>
+
+                <a class="feature-card" href="#parent-pin">
+                    <div class="feature-icon">🔑</div>
+
+                    <h3 data-vi="Mã PIN phụ huynh"
+                        data-en="Parent PIN">
+                        Mã PIN phụ huynh
+                    </h3>
+
+                    <p data-vi="Tìm hiểu cách thiết lập và sử dụng mã PIN để bảo vệ các thao tác được hỗ trợ."
+                       data-en="Learn how to configure and use a PIN to protect supported actions.">
+                        Tìm hiểu cách thiết lập và sử dụng mã PIN
+                        để bảo vệ các thao tác được hỗ trợ.
+                    </p>
+                </a>
+
+                <a class="feature-card" href="#anti-theft">
+                    <div class="feature-icon">🛡️</div>
+
+                    <h3 data-vi="Chống trộm"
+                        data-en="Anti-Theft">
+                        Chống trộm
+                    </h3>
+
+                    <p data-vi="Tìm hiểu cách cấu hình cảnh báo khi có sự kiện bất thường."
+                       data-en="Learn how to configure alerts for supported events.">
+                        Tìm hiểu cách cấu hình cảnh báo khi có sự kiện bất thường.
+                    </p>
+                </a>
+
+                <a class="feature-card" href="#permissions">
+                    <div class="feature-icon">⚙️</div>
+
+                    <h3 data-vi="Quyền truy cập"
+                        data-en="Permissions">
+                        Quyền truy cập
+                    </h3>
+
+                    <p data-vi="Tìm hiểu về các quyền Android cần thiết cho từng tính năng."
+                       data-en="Learn about Android permissions required by different features.">
+                        Tìm hiểu về các quyền Android cần thiết cho từng tính năng.
+                    </p>
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- TOUCH LOCK -->
+
+        <section class="guide-section" id="touch-lock">
+
+            <h2 data-vi="1. Hướng dẫn sử dụng khóa cảm ứng"
+                data-en="1. How to Use Touch Lock">
+                1. Hướng dẫn sử dụng khóa cảm ứng
+            </h2>
+
+            <p data-vi="Tính năng khóa cảm ứng được thiết kế để hạn chế các thao tác chạm ngoài ý muốn khi trẻ đang xem video hoặc sử dụng nội dung phù hợp."
+               data-en="Touch Lock is designed to help prevent accidental touches while children watch videos or use suitable content.">
+                Tính năng khóa cảm ứng được thiết kế để hạn chế các
+                thao tác chạm ngoài ý muốn khi trẻ đang xem video
+                hoặc sử dụng nội dung phù hợp.
+            </p>
+
+            <h3 data-vi="Các bước thực hiện"
+                data-en="Steps">
+                Các bước thực hiện
+            </h3>
+
+            <ol class="steps">
+                <li data-vi="Mở ứng dụng TinyLock trên điện thoại."
+                    data-en="Open TinyLock on your phone.">
+                    Mở ứng dụng TinyLock trên điện thoại.
+                </li>
+
+                <li data-vi="Chọn tính năng Khóa cảm ứng."
+                    data-en="Select Touch Lock.">
+                    Chọn tính năng Khóa cảm ứng.
+                </li>
+
+                <li data-vi="Thực hiện các bước thiết lập hoặc cấp quyền nếu ứng dụng yêu cầu."
+                    data-en="Complete the setup steps or grant permissions if requested.">
+                    Thực hiện các bước thiết lập hoặc cấp quyền
+                    nếu ứng dụng yêu cầu.
+                </li>
+
+                <li data-vi="Mở nội dung muốn xem và kích hoạt khóa theo hướng dẫn hiển thị trong ứng dụng."
+                    data-en="Open the content and activate the lock according to the instructions shown in the app.">
+                    Mở nội dung muốn xem và kích hoạt khóa theo
+                    hướng dẫn hiển thị trong ứng dụng.
+                </li>
+
+                <li data-vi="Sử dụng phương thức mở khóa được TinyLock cung cấp để tiếp tục thao tác."
+                    data-en="Use the unlock method provided by TinyLock to resume interaction.">
+                    Sử dụng phương thức mở khóa được TinyLock
+                    cung cấp để tiếp tục thao tác.
+                </li>
+            </ol>
+
+            <div class="image-placeholder"
+                 data-vi="Ảnh minh họa: Thêm ảnh màn hình khóa cảm ứng tại đây."
+                 data-en="Illustration: Add a screenshot of Touch Lock here.">
+                Ảnh minh họa: Thêm ảnh màn hình khóa cảm ứng tại đây.
+            </div>
+
+            <!--
+            Khi có ảnh, thay image-placeholder bằng:
+
+            <img class="guide-image"
+                 src="images/touch-lock.png"
+                 alt="Giao diện khóa cảm ứng TinyLock">
+            -->
+
+            <div class="notice">
+                <strong data-vi="Lưu ý:"
+                        data-en="Note:">
+                    Lưu ý:
+                </strong>
+
+                <span data-vi="Cách kích hoạt và mở khóa có thể khác nhau tùy phiên bản ứng dụng và cấu hình thiết bị."
+                      data-en="Activation and unlocking steps may vary depending on the app version and device configuration.">
+                    Cách kích hoạt và mở khóa có thể khác nhau tùy
+                    phiên bản ứng dụng và cấu hình thiết bị.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- KID MODE -->
+
+        <section class="guide-section" id="kid-mode">
+
+            <h2 data-vi="2. Hướng dẫn chế độ trẻ em"
+                data-en="2. How to Use Kid Mode">
+                2. Hướng dẫn chế độ trẻ em
+            </h2>
+
+            <p data-vi="Chế độ trẻ em hỗ trợ phụ huynh thiết lập phạm vi ứng dụng mà trẻ được phép sử dụng theo các chức năng hiện có của TinyLock."
+               data-en="Kid Mode helps parents configure which apps children can use through the features available in TinyLock.">
+                Chế độ trẻ em hỗ trợ phụ huynh thiết lập phạm vi
+                ứng dụng mà trẻ được phép sử dụng theo các chức năng
+                hiện có của TinyLock.
+            </p>
+
+            <h3 data-vi="Cách thiết lập"
+                data-en="Setup">
+                Cách thiết lập
+            </h3>
+
+            <ol class="steps">
+                <li data-vi="Mở mục Kid Mode trong TinyLock."
+                    data-en="Open Kid Mode in TinyLock.">
+                    Mở mục Kid Mode trong TinyLock.
+                </li>
+
+                <li data-vi="Chọn các ứng dụng phù hợp mà bạn muốn cho phép trẻ sử dụng."
+                    data-en="Select the apps you want to allow your child to use.">
+                    Chọn các ứng dụng phù hợp mà bạn muốn cho phép trẻ sử dụng.
+                </li>
+
+                <li data-vi="Kiểm tra lại danh sách ứng dụng đã chọn."
+                    data-en="Review the selected app list.">
+                    Kiểm tra lại danh sách ứng dụng đã chọn.
+                </li>
+
+                <li data-vi="Kích hoạt chế độ theo hướng dẫn trên màn hình."
+                    data-en="Activate the mode according to the on-screen instructions.">
+                    Kích hoạt chế độ theo hướng dẫn trên màn hình.
+                </li>
+            </ol>
+
+            <div class="image-placeholder"
+                 data-vi="Ảnh minh họa: Thêm ảnh giao diện Kid Mode."
+                 data-en="Illustration: Add a screenshot of Kid Mode.">
+                Ảnh minh họa: Thêm ảnh giao diện Kid Mode.
+            </div>
+
+            <div class="notice notice-warning">
+                <strong data-vi="Dành cho phụ huynh:"
+                        data-en="For parents:">
+                    Dành cho phụ huynh:
+                </strong>
+
+                <span data-vi="Hãy kiểm tra hoạt động thực tế trên thiết bị sau khi thiết lập để bảo đảm chế độ hoạt động như mong muốn."
+                      data-en="Test the configuration on the device to verify that the mode behaves as expected.">
+                    Hãy kiểm tra hoạt động thực tế trên thiết bị sau
+                    khi thiết lập để bảo đảm chế độ hoạt động như mong muốn.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- TIMER -->
+
+        <section class="guide-section" id="timer">
+
+            <h2 data-vi="3. Hướng dẫn sử dụng bộ hẹn giờ"
+                data-en="3. How to Use the Timer">
+                3. Hướng dẫn sử dụng bộ hẹn giờ
+            </h2>
+
+            <p data-vi="Bộ hẹn giờ có thể hỗ trợ phụ huynh quản lý thời gian sử dụng các tính năng được TinyLock hỗ trợ."
+               data-en="The timer can help parents manage time for features supported by TinyLock.">
+                Bộ hẹn giờ có thể hỗ trợ phụ huynh quản lý thời gian
+                sử dụng các tính năng được TinyLock hỗ trợ.
+            </p>
+
+            <ol class="steps">
+                <li data-vi="Mở mục Hẹn giờ."
+                    data-en="Open Quick Timer.">
+                    Mở mục Hẹn giờ.
+                </li>
+
+                <li data-vi="Chọn thời lượng mong muốn."
+                    data-en="Choose your preferred duration.">
+                    Chọn thời lượng mong muốn.
+                </li>
+
+                <li data-vi="Bắt đầu hẹn giờ và kiểm tra trạng thái hiển thị."
+                    data-en="Start the timer and check its displayed status.">
+                    Bắt đầu hẹn giờ và kiểm tra trạng thái hiển thị.
+                </li>
+
+                <li data-vi="Khi cần, quay lại TinyLock để kiểm tra hoặc điều chỉnh theo các tùy chọn hiện có."
+                    data-en="Return to TinyLock to check or adjust the timer using the available options.">
+                    Khi cần, quay lại TinyLock để kiểm tra hoặc
+                    điều chỉnh theo các tùy chọn hiện có.
+                </li>
+            </ol>
+
+            <div class="notice">
+                <span data-vi="Thời lượng, giới hạn sử dụng và tùy chọn mở rộng có thể phụ thuộc vào phiên bản TinyLock và cấu hình hiện tại."
+                      data-en="Duration, usage limits, and additional options may depend on your TinyLock version and configuration.">
+                    Thời lượng, giới hạn sử dụng và tùy chọn mở rộng
+                    có thể phụ thuộc vào phiên bản TinyLock và cấu hình hiện tại.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- PARENT PIN -->
+
+        <section class="guide-section" id="parent-pin">
+
+            <h2 data-vi="4. Hướng dẫn mã PIN phụ huynh"
+                data-en="4. Parent PIN Guide">
+                4. Hướng dẫn mã PIN phụ huynh
+            </h2>
+
+            <p data-vi="Nếu phiên bản TinyLock của bạn hỗ trợ mã PIN phụ huynh, hãy thiết lập mã PIN để bảo vệ những thao tác được ứng dụng yêu cầu xác thực."
+               data-en="If your version of TinyLock supports a parent PIN, configure it to protect actions that require authentication.">
+                Nếu phiên bản TinyLock của bạn hỗ trợ mã PIN phụ huynh,
+                hãy thiết lập mã PIN để bảo vệ những thao tác được
+                ứng dụng yêu cầu xác thực.
+            </p>
+
+            <ol class="steps">
+                <li data-vi="Mở phần cài đặt mã PIN trong TinyLock."
+                    data-en="Open the PIN settings in TinyLock.">
+                    Mở phần cài đặt mã PIN trong TinyLock.
+                </li>
+
+                <li data-vi="Làm theo hướng dẫn để tạo hoặc xác nhận mã PIN."
+                    data-en="Follow the instructions to create or confirm your PIN.">
+                    Làm theo hướng dẫn để tạo hoặc xác nhận mã PIN.
+                </li>
+
+                <li data-vi="Ghi nhớ mã PIN và không chia sẻ mã với trẻ nếu mục đích sử dụng yêu cầu bảo mật."
+                    data-en="Remember your PIN and keep it private when necessary.">
+                    Ghi nhớ mã PIN và không chia sẻ mã với trẻ
+                    nếu mục đích sử dụng yêu cầu bảo mật.
+                </li>
+            </ol>
+
+            <div class="notice notice-warning">
+                <strong data-vi="Quan trọng:"
+                        data-en="Important:">
+                    Quan trọng:
+                </strong>
+
+                <span data-vi="Không đăng tải mã PIN thật hoặc thông tin bảo mật cá nhân lên trang hướng dẫn công khai."
+                      data-en="Never publish real PINs or personal security information on a public guide page.">
+                    Không đăng tải mã PIN thật hoặc thông tin bảo mật
+                    cá nhân lên trang hướng dẫn công khai.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- ANTI-THEFT -->
+
+        <section class="guide-section" id="anti-theft">
+
+            <h2 data-vi="5. Hướng dẫn tính năng chống trộm"
+                data-en="5. Anti-Theft Guide">
+                5. Hướng dẫn tính năng chống trộm
+            </h2>
+
+            <p data-vi="Phần này hướng dẫn cách thiết lập và kiểm tra tính năng chống trộm nếu tính năng đã có trong phiên bản TinyLock bạn đang sử dụng."
+               data-en="This section explains how to configure and test Anti-Theft if it is available in your version of TinyLock.">
+                Phần này hướng dẫn cách thiết lập và kiểm tra tính năng
+                chống trộm nếu tính năng đã có trong phiên bản TinyLock
+                bạn đang sử dụng.
+            </p>
+
+            <ol class="steps">
+                <li data-vi="Mở mục Chống trộm trong ứng dụng."
+                    data-en="Open Anti-Theft in the app.">
+                    Mở mục Chống trộm trong ứng dụng.
+                </li>
+
+                <li data-vi="Đọc hướng dẫn và cấp các quyền cần thiết."
+                    data-en="Review the instructions and grant the required permissions.">
+                    Đọc hướng dẫn và cấp các quyền cần thiết.
+                </li>
+
+                <li data-vi="Thiết lập phương thức cảnh báo và các tùy chọn có sẵn."
+                    data-en="Configure the alert method and available options.">
+                    Thiết lập phương thức cảnh báo và các tùy chọn có sẵn.
+                </li>
+
+                <li data-vi="Thử nghiệm trong môi trường an toàn để xác nhận tính năng hoạt động đúng."
+                    data-en="Test the feature in a safe environment to verify that it works correctly.">
+                    Thử nghiệm trong môi trường an toàn để xác nhận
+                    tính năng hoạt động đúng.
+                </li>
+            </ol>
+
+            <div class="notice notice-warning">
+                <span data-vi="Không nên dựa hoàn toàn vào tính năng chống trộm để bảo vệ thiết bị. Hiệu quả hoạt động có thể bị ảnh hưởng bởi quyền Android, chế độ tiết kiệm pin và chính sách của nhà sản xuất."
+                      data-en="Do not rely solely on Anti-Theft to protect your device. Its behavior may be affected by Android permissions, battery optimization, and manufacturer policies.">
+                    Không nên dựa hoàn toàn vào tính năng chống trộm
+                    để bảo vệ thiết bị. Hiệu quả hoạt động có thể bị
+                    ảnh hưởng bởi quyền Android, chế độ tiết kiệm pin
+                    và chính sách của nhà sản xuất.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- PERMISSIONS -->
+
+        <section class="guide-section" id="permissions">
+
+            <h2 data-vi="6. Quyền truy cập trên Android"
+                data-en="6. Android Permissions">
+                6. Quyền truy cập trên Android
+            </h2>
+
+            <p data-vi="Một số chức năng của TinyLock có thể cần quyền truy cập đặc biệt. Chỉ cấp những quyền mà ứng dụng yêu cầu để thực hiện chức năng bạn muốn sử dụng."
+               data-en="Some TinyLock features may require special permissions. Grant only the permissions needed for the features you intend to use.">
+                Một số chức năng của TinyLock có thể cần quyền truy cập
+                đặc biệt. Chỉ cấp những quyền mà ứng dụng yêu cầu để
+                thực hiện chức năng bạn muốn sử dụng.
+            </p>
+
+            <h3 data-vi="Các bước kiểm tra quyền"
+                data-en="How to Check Permissions">
+                Các bước kiểm tra quyền
+            </h3>
+
+            <ol class="steps">
+                <li data-vi="Mở phần Cài đặt của điện thoại."
+                    data-en="Open your phone's Settings.">
+                    Mở phần Cài đặt của điện thoại.
+                </li>
+
+                <li data-vi="Tìm mục Ứng dụng và chọn TinyLock."
+                    data-en="Open Apps and select TinyLock.">
+                    Tìm mục Ứng dụng và chọn TinyLock.
+                </li>
+
+                <li data-vi="Kiểm tra các quyền liên quan theo hướng dẫn trong ứng dụng."
+                    data-en="Review the relevant permissions according to the app's instructions.">
+                    Kiểm tra các quyền liên quan theo hướng dẫn trong ứng dụng.
+                </li>
+
+                <li data-vi="Nếu cần, kiểm tra thêm các mục Quyền truy cập đặc biệt hoặc Trợ năng trong Cài đặt Android."
+                    data-en="If needed, check Special app access or Accessibility in Android Settings.">
+                    Nếu cần, kiểm tra thêm các mục Quyền truy cập đặc biệt
+                    hoặc Trợ năng trong Cài đặt Android.
+                </li>
+            </ol>
+
+            <div class="notice notice-warning">
+                <strong data-vi="Lưu ý bảo mật:"
+                        data-en="Security note:">
+                    Lưu ý bảo mật:
+                </strong>
+
+                <span data-vi="Hãy đọc kỹ giải thích của từng quyền trước khi cấp. Khi không còn cần một chức năng, bạn có thể xem xét thu hồi quyền tương ứng."
+                      data-en="Read each permission explanation before granting it. Consider revoking a permission when you no longer need the associated feature.">
+                    Hãy đọc kỹ giải thích của từng quyền trước khi cấp.
+                    Khi không còn cần một chức năng, bạn có thể xem xét
+                    thu hồi quyền tương ứng.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- FAQ -->
+
+        <section class="guide-section" id="faq">
+
+            <h2 data-vi="7. Câu hỏi thường gặp"
+                data-en="7. Frequently Asked Questions">
+                7. Câu hỏi thường gặp
+            </h2>
+
+            <details>
+                <summary
+                    data-vi="Tại sao một tính năng không hoạt động?"
+                    data-en="Why isn't a feature working?">
+                    Tại sao một tính năng không hoạt động?
+                </summary>
+
+                <p
+                    data-vi="Hãy kiểm tra xem bạn đã hoàn thành thiết lập, cấp các quyền cần thiết và sử dụng phiên bản TinyLock tương thích hay chưa. Bạn cũng có thể thử mở lại ứng dụng và kiểm tra cài đặt pin của điện thoại."
+                    data-en="Check that setup is complete, required permissions are granted, and your TinyLock version is compatible. You can also reopen the app and review your phone's battery settings.">
+                    Hãy kiểm tra xem bạn đã hoàn thành thiết lập,
+                    cấp các quyền cần thiết và sử dụng phiên bản
+                    TinyLock tương thích hay chưa. Bạn cũng có thể
+                    thử mở lại ứng dụng và kiểm tra cài đặt pin
+                    của điện thoại.
+                </p>
+            </details>
+
+            <details>
+                <summary
+                    data-vi="Tại sao TinyLock bị dừng chạy trong nền?"
+                    data-en="Why does TinyLock stop running in the background?">
+                    Tại sao TinyLock bị dừng chạy trong nền?
+                </summary>
+
+                <p
+                    data-vi="Một số thiết bị có thể giới hạn ứng dụng chạy nền để tiết kiệm pin. Hãy xem hướng dẫn của nhà sản xuất về quyền tự khởi động và quản lý pin, nếu các tùy chọn này có sẵn."
+                    data-en="Some devices restrict background activity to save battery. Check your manufacturer's guidance for auto-start and battery management options, if available.">
+                    Một số thiết bị có thể giới hạn ứng dụng chạy nền
+                    để tiết kiệm pin. Hãy xem hướng dẫn của nhà sản xuất
+                    về quyền tự khởi động và quản lý pin, nếu các tùy
+                    chọn này có sẵn.
+                </p>
+            </details>
+
+            <details>
+                <summary
+                    data-vi="Tôi có cần kết nối Internet để dùng TinyLock không?"
+                    data-en="Does TinyLock require an Internet connection?">
+                    Tôi có cần kết nối Internet để dùng TinyLock không?
+                </summary>
+
+                <p
+                    data-vi="Điều này phụ thuộc vào tính năng bạn sử dụng. Nội dung hướng dẫn trực tuyến cần Internet để tải lần đầu hoặc khi cập nhật. Các tính năng khác cần được kiểm tra theo thiết kế thực tế của ứng dụng."
+                    data-en="This depends on the feature. Online help requires Internet access to load or update. Other features should be checked against the app's actual design.">
+                    Điều này phụ thuộc vào tính năng bạn sử dụng.
+                    Nội dung hướng dẫn trực tuyến cần Internet để tải
+                    lần đầu hoặc khi cập nhật. Các tính năng khác cần
+                    được kiểm tra theo thiết kế thực tế của ứng dụng.
+                </p>
+            </details>
+
+            <details>
+                <summary
+                    data-vi="Làm thế nào để liên hệ hỗ trợ?"
+                    data-en="How can I contact support?">
+                    Làm thế nào để liên hệ hỗ trợ?
+                </summary>
+
+                <p
+                    data-vi="Bạn có thể sử dụng địa chỉ email hỗ trợ chính thức hoặc trang hỗ trợ do nhà phát triển cung cấp."
+                    data-en="You can use the official support email address or the support page provided by the developer.">
+                    Bạn có thể sử dụng địa chỉ email hỗ trợ chính thức
+                    hoặc trang hỗ trợ do nhà phát triển cung cấp.
+                </p>
+            </details>
+
+        </section>
+
+        <!-- CONTACT -->
+
+        <section class="contact-box">
+
+            <h2 data-vi="Bạn vẫn cần trợ giúp?"
+                data-en="Still need help?">
+                Bạn vẫn cần trợ giúp?
+            </h2>
+
+            <p
+                data-vi="Nếu không tìm thấy câu trả lời, hãy liên hệ với đội ngũ phát triển TinyLock."
+                data-en="If you cannot find the answer, contact the TinyLock development team.">
+                Nếu không tìm thấy câu trả lời, hãy liên hệ với
+                đội ngũ phát triển TinyLock.
+            </p>
+
+            <!-- Thay email bên dưới bằng email hỗ trợ thật của bạn. -->
+            <a class="button button-primary"
+               href="mailto:YOUR_SUPPORT_EMAIL@example.com"
+               data-vi="Liên hệ hỗ trợ"
+               data-en="Contact Support">
+                Liên hệ hỗ trợ
+            </a>
+
+        </section>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>
+        <strong>TinyLock</strong>
+    </p>
+
+    <p data-vi="Hướng dẫn sử dụng ứng dụng"
+       data-en="Application User Guide">
+        Hướng dẫn sử dụng ứng dụng
+    </p>
+
+    <p>
+        <a href="../privacy-policy/"
+           data-vi="Chính sách bảo mật"
+           data-en="Privacy Policy">
+            Chính sách bảo mật
+        </a>
+    </p>
+
+    <p>
+        © <span id="currentYear"></span> TinyGameLab.
+    </p>
+</footer>
+
+<button class="back-to-top"
+        id="backToTop"
+        aria-label="Về đầu trang"
+        title="Về đầu trang">
+    ↑
+</button>
+
+<script>
+    const languageSelect = document.getElementById("languageSelect");
+
+    function setLanguage(language) {
+        document.documentElement.lang = language;
+
+        document.querySelectorAll("[data-" + language + "]")
+            .forEach(function (element) {
+                element.textContent =
+                    element.getAttribute("data-" + language);
+            });
+
+        languageSelect.value = language;
+
+        try {
+            localStorage.setItem("tinylock-guide-language", language);
+        } catch (error) {
+            // Trang vẫn hoạt động nếu trình duyệt không cho lưu dữ liệu.
+        }
+    }
+
+    languageSelect.addEventListener("change", function () {
+        setLanguage(languageSelect.value);
+    });
+
+    let savedLanguage = "vi";
+
+    try {
+        const storedLanguage =
+            localStorage.getItem("tinylock-guide-language");
+
+        if (storedLanguage === "vi" || storedLanguage === "en") {
+            savedLanguage = storedLanguage;
+        }
+    } catch (error) {
+        // Sử dụng tiếng Việt mặc định.
+    }
+
+    setLanguage(savedLanguage);
+
+    document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+    document.getElementById("backToTop").addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
+
+</body>
+</html>
