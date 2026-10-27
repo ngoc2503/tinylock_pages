@@ -398,6 +398,25 @@
             box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
         }
 
+        
+        .touch-lock-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+            align-items: start;
+        }
+        
+        .touch-lock-gallery img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            object-fit: contain;
+            border: 1px solid #e5e7eb;
+        }
+
+
         @media (max-width: 600px) {
             .topbar-inner {
                 padding: 10px 14px;
@@ -675,12 +694,25 @@
                     cung cấp để tiếp tục thao tác.
                 </li>
             </ol>
-
+            <!--
             <div class="image-placeholder"
                  data-vi="Ảnh minh họa: Thêm ảnh màn hình khóa cảm ứng tại đây."
                  data-en="Illustration: Add a screenshot of Touch Lock here.">
                 Ảnh minh họa: Thêm ảnh màn hình khóa cảm ứng tại đây.
             </div>
+            -->
+            
+            <div class="touch-lock-gallery">
+                <img src="../images/touch_lock_1.png"
+                     alt="Bước 1: Mở tính năng khóa cảm ứng">
+            
+                <img src="../images/touch_lock_2.png"
+                     alt="Bước 2: Thiết lập khóa cảm ứng">
+            
+                <img src="../images/touch_lock_3.png"
+                     alt="Bước 3: Sử dụng khóa cảm ứng">
+            </div>
+
 
             <!--
             Khi có ảnh, thay image-placeholder bằng:
@@ -748,24 +780,80 @@
                 </li>
             </ol>
 
+            <!--
             <div class="image-placeholder"
                  data-vi="Ảnh minh họa: Thêm ảnh giao diện Kid Mode."
                  data-en="Illustration: Add a screenshot of Kid Mode.">
                 Ảnh minh họa: Thêm ảnh giao diện Kid Mode.
             </div>
+            -->
+            
+             <div class="touch-lock-gallery">
+                <img src="../images/kid_mode_1.png"
+                     alt="Bước 1: Mở chế độ trẻ em">
+            
+                <img src="../images/kid_mode_2.png"
+                     alt="Bước 2: Chọn nhóm ứng dụng">
+            
+                <img src="../images/kid_mode_3.png"
+                     alt="Bước 3: Cấp quyền và khởi chạy chế độ">
+             </div>
 
-            <div class="notice notice-warning">
-                <strong data-vi="Dành cho phụ huynh:"
-                        data-en="For parents:">
-                    Dành cho phụ huynh:
-                </strong>
+            
+<div class="notice notice-warning">
+    <strong data-vi="Lưu ý dành cho phụ huynh:"
+            data-en="Important for parents:">
+        Lưu ý dành cho phụ huynh:
+    </strong>
 
-                <span data-vi="Hãy kiểm tra hoạt động thực tế trên thiết bị sau khi thiết lập để bảo đảm chế độ hoạt động như mong muốn."
-                      data-en="Test the configuration on the device to verify that the mode behaves as expected.">
-                    Hãy kiểm tra hoạt động thực tế trên thiết bị sau
-                    khi thiết lập để bảo đảm chế độ hoạt động như mong muốn.
-                </span>
-            </div>
+    <p data-vi="Để Kid Mode hoạt động ổn định, hãy kiểm tra các cài đặt sau trên điện thoại của trẻ:"
+       data-en="To help Kid Mode work reliably, check the following settings on your child's phone:">
+        Để Kid Mode hoạt động ổn định, hãy kiểm tra các cài đặt sau trên điện thoại của trẻ:
+    </p>
+
+    <ul>
+        <li>
+            <strong data-vi="Tiết kiệm pin:"
+                    data-en="Battery optimization:">
+                Tiết kiệm pin:
+            </strong>
+            <span data-vi="Một số điện thoại có thể hạn chế hoặc dừng dịch vụ chạy nền, khiến Kid Mode hoạt động không liên tục. Nếu gặp sự cố, hãy cân nhắc cho phép TinyLock chạy nền hoặc bỏ tối ưu pin cho ứng dụng."
+                  data-en="Some phones may restrict or stop background services, causing Kid Mode to work inconsistently. If problems occur, consider allowing TinyLock to run in the background or exempting it from battery optimization.">
+                Một số điện thoại có thể hạn chế hoặc dừng dịch vụ chạy nền, khiến Kid Mode hoạt động không liên tục. Nếu gặp sự cố, hãy cân nhắc cho phép TinyLock chạy nền hoặc bỏ tối ưu pin cho ứng dụng.
+            </span>
+        </li>
+
+        <li>
+            <strong data-vi="Khởi chạy nền và tự khởi động:"
+                    data-en="Background activity and auto-start:">
+                Khởi chạy nền và tự khởi động:
+            </strong>
+            <span data-vi="Trên các thiết bị có tùy chọn này, hãy cho phép TinyLock tự khởi động và hoạt động nền khi cần thiết."
+                  data-en="On devices that provide these options, allow TinyLock to auto-start and run in the background when needed.">
+                Trên các thiết bị có tùy chọn này, hãy cho phép TinyLock tự khởi động và hoạt động nền khi cần thiết.
+            </span>
+        </li>
+
+        <li>
+            <strong data-vi="Quyền Trợ năng (Accessibility):"
+                    data-en="Accessibility permission:">
+                Quyền Trợ năng (Accessibility):
+            </strong>
+            <span data-vi="Chỉ bật quyền khi bạn hiểu và cần các chức năng tương ứng của TinyLock. Hãy kiểm tra quyền định kỳ và tắt khi không còn sử dụng tính năng cần quyền này."
+                  data-en="Enable this permission only when you understand and need the related TinyLock features. Review it periodically and disable it when those features are no longer needed.">
+                Chỉ bật quyền khi bạn hiểu và cần các chức năng tương ứng của TinyLock. Hãy kiểm tra quyền định kỳ và tắt khi không còn sử dụng tính năng cần quyền này.
+            </span>
+        </li>
+    </ul>
+
+    <p data-vi="Lưu ý: Tên và vị trí các tùy chọn có thể khác nhau tùy hãng điện thoại và phiên bản Android. Sau khi thiết lập, hãy thử Kid Mode để xác nhận chế độ hoạt động đúng mong muốn."
+       data-en="Note: Setting names and locations vary by phone manufacturer and Android version. Test Kid Mode after configuration to verify that it behaves as expected.">
+        Lưu ý: Tên và vị trí các tùy chọn có thể khác nhau tùy hãng điện thoại và phiên bản Android. Sau khi thiết lập, hãy thử Kid Mode để xác nhận chế độ hoạt động đúng mong muốn.
+    </p>
+</div>
+
+
+           
 
         </section>
 
